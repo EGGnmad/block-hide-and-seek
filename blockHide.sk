@@ -1,0 +1,63 @@
+import:
+    org.bukkit.Material
+    org.bukkit.entity.FallingBlock
+    org.bukkit.World
+    org.bukkit.entity.Player
+
+
+command /disguise.block [<boolean=true>]:
+    trigger:
+        if check [arg-1 is true] -> [{start.%player%} is false or none]:
+            set {start.%player%} to arg-1
+            set {_block.%player%} to Material.values()
+            set {_number} to random integer between 0 and 250
+            set {_block.%player%} to {_block.%player%}[{_number}]
+    
+            send "%{_block.%player%}%"
+            
+            apply potion of invisibility of tier 0 without particles to player for 999 days
+        
+            while {start.%player%} is true:
+                kill {entity.%player%}
+                set {entity.%player%} to (world of player).spawnFallingBlock(location of player, {_block.%player%}, 0)
+                {entity.%player%}.setGravity(false)
+                wait 1 tick
+                    
+                    
+            kill {entity.%player%}
+        
+        else if arg-1 is false:
+            set {start.%player%} to arg-1
+            remove invisibility from player
+
+command /make.use.command [<player>] [<text>]:
+    trigger:
+        make arg-1 run cmd arg-2 as op
+
+
+
+on sneak toggle:
+    if {sneak.%player%} is not set:
+        set {sneak.%player%} to true
+    
+    else if {sneak.%player%} is false:
+        set {sneak.%player%} to true
+        
+    else if {sneak.%player%} is true:
+        set {sneak.%player%} to false
+    
+    
+    if check [{sneak.%player%} is true] -> [{start.%player%} is true] -> [player.isOnGround() is true]:
+        set {_x} to floor(x-coord of player's location)+0.5
+        set {_y} to floor(y-coord of player's location)
+        set {_z} to floor(z-coord of player's location)+0.5
+        teleport player to location({_x}, {_y}, {_z}, world of player, yaw of player, pitch of player)
+
+on quit:
+    if {start.%player%} is true:
+        make player run cmd "/effect clear" as op
+        set {start.%player%} to false
+
+on death:
+    if {start.%player%} is true:
+        set {start.%player%} to false
