@@ -2,8 +2,8 @@
 Skript-block hide and seek  
 
 ### Version:
-- Skript-version: 2.6beta3  
-- Minecraft-version: 1.16.5
+- Skript: 2.6beta3 (✔checked in 2.6)
+- Minecraft: 1.16.5
 
 ### Needed addons(my addons):
   - MorkazSk
