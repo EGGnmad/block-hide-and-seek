@@ -1,4 +1,4 @@
-# block-hide
+# block-hide-and-seek
 Skript-block hide and seek  
 
 ### Version:
