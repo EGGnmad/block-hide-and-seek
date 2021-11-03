@@ -1,12 +1,9 @@
 command /gameplayer.setting:
 	trigger:
-		if arg-1:
-			delete {catcher}
-			delete {user::*}
+		delete {catcher}
+		delete {user::*}
 			
-			set {user::*} to all players
-			set {catcher} to random element of {user::*}
-			remove {catcher} from {user::*}
-			set {user::*} to {user::*}
-			
-			broadcast "%{catcher}%"
+		set {user::*} to all players
+		set {catcher} to random element of {user::*}
+		remove {catcher} from {user::*}
+		set {user::*} to {user::*}
